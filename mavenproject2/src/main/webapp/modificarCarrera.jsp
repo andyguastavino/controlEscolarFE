@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Modifiar Carrera</h1>
+         <jsp:include page="menuNavegacion.jsp" />
     </body>
 </html>

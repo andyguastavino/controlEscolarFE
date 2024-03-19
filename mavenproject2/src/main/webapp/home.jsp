@@ -13,13 +13,6 @@
     </head>
     <body>
         <h1>Home Control Escolar</h1>
-        <nav>
-            <ul>
-                <li><a href="Crear.jsp">Crear</a></li>
-                <li><a href="Listar.jsp">Listar</a></li>
-                <li><a href="Modificar.jsp">Modificar</a></li>
-            </ul>
-
-        </nav>
+        <jsp:include page="menuNavegacion.jsp" />
     </body>
 </html>
