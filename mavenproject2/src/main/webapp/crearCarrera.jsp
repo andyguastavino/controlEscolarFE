@@ -14,6 +14,13 @@
     <body>
         <h1>Crear Carrera</h1>
          <jsp:include page="menuNavegacion.jsp" />
+         
+         <form action="Crear" method="post"> 
+            <label for="nombre">Nombre Carrera:</label><br>
+            <input type="text" id="nombre" name="nombreCarrera" required><br><br>
+            <input type="submit" value="Crear Carrera"> 
+        </form>
+         
 
     </body>
 </html>

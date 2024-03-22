@@ -11,6 +11,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import db.DbConnect;
+import db.Sql;
+import java.sql.*;
+
 
 /**
  *
@@ -62,9 +66,51 @@ public class Crear extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        // Recuperar los datos del formulario
+        String nombreCarrera = request.getParameter("nombreCarrera");
+
+        // Crear una instancia de DbConnect para obtener la conexión
+        DbConnect db = new DbConnect();
+        Connection conexion = null;
+        System.out.println("Todavia no cree conexion");
+
+
+        try {
+            // Cargar el controlador JDBC y establecer la conexión
+            DbConnect.loadDriver();
+            conexion = db.getConexion();
+              if (conexion != null) {
+                System.out.println("Conexión establecida correctamente");
+            } else {
+                System.out.println("Error al establecer la conexión");
+            }
+
+            // Crear una instancia de Sql para realizar la operación de inserción
+            Sql sql = new Sql();
+            sql.insertData(conexion, "carrera", "nombre", nombreCarrera);
+
+            // Redireccionar a alguna página de éxito
+            response.sendRedirect("exito.jsp");
+
+        } catch (ClassNotFoundException | SQLException e) {
+            // Manejar cualquier excepción
+            
+            // Redireccionar a una página de error
+            response.sendRedirect("error.jsp");
+
+        } finally {
+            // Cerrar la conexión en el bloque finally para asegurarse de que siempre se cierre
+            if (conexion != null) {
+                try {
+                    conexion.close();
+                } catch (SQLException e) {
+                   e.getErrorCode();
+                }
+            }
+        }
     }
 
     /**
