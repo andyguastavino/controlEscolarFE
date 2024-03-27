@@ -31,7 +31,7 @@ public class Sql {
 
     public void insertData(Connection con, String table, String columna, String inputCarrera) {
         try {
-            String SQLQuery = "INSERT INTO " + table + " (" + columna + ") VALUES (?)";
+            String SQLQuery = "INSERT INTO `" + table + "` (" + columna + ") VALUES (?)";
             PreparedStatement pt = con.prepareStatement(SQLQuery);
             pt.setString(1, inputCarrera);
             pt.executeUpdate();

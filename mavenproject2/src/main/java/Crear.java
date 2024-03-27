@@ -73,7 +73,6 @@ public class Crear extends HttpServlet {
         String nombreCarrera = request.getParameter("nombreCarrera");
 
         // Crear una instancia de DbConnect para obtener la conexión
-        DbConnect db = new DbConnect();
         Connection conexion = null;
         System.out.println("Todavia no cree conexion");
 
@@ -81,6 +80,7 @@ public class Crear extends HttpServlet {
         try {
             // Cargar el controlador JDBC y establecer la conexión
             DbConnect.loadDriver();
+            DbConnect db = new DbConnect();
             conexion = db.getConexion();
               if (conexion != null) {
                 System.out.println("Conexión establecida correctamente");
@@ -90,7 +90,7 @@ public class Crear extends HttpServlet {
 
             // Crear una instancia de Sql para realizar la operación de inserción
             Sql sql = new Sql();
-            sql.insertData(conexion, "carrera", "nombre", nombreCarrera);
+            sql.insertData(conexion, "carreras", "nombre", nombreCarrera);
 
             // Redireccionar a alguna página de éxito
             response.sendRedirect("exito.jsp");

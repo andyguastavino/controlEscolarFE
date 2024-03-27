@@ -8,7 +8,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public final class DbConnect {
-
+    
+//com.mysql.cj.jdbc.MysqlDataSource
     public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     public static final String PROTOCOL = "jdbc:mysql:";
     public static final String HOST = "localhost";
@@ -21,7 +22,7 @@ public final class DbConnect {
     public static void loadDriver() throws ClassNotFoundException {
         //getConnectionProperties(); better if connection properties are read from a configuration file
         Class.forName(DRIVER);
-        BD_URL = String.format("%s//%s/%s", PROTOCOL, HOST, BD_NAME);
+        BD_URL = String.format("%s//%s/%s?useSSL=false&currentSchema=%s", PROTOCOL, HOST, BD_NAME, BD_NAME);
     }
     
     /**
@@ -31,7 +32,6 @@ public final class DbConnect {
      * @throws java.sql.SQLException
      */
     public Connection getConexion() throws SQLException {
-        BD_URL = String.format("%s//%s/%s", PROTOCOL, HOST, BD_NAME);
         conexion = DriverManager.getConnection(BD_URL, USER, PASSWORD);
         return conexion;
     }
