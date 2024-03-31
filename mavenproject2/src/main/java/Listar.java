@@ -120,6 +120,49 @@ public class Listar extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        // Crear una conexión
+        Connection conexion = null;
+                try {
+            // Obtener la conexión de la clase DbConnect
+            DbConnect.loadDriver();
+            DbConnect db = new DbConnect();
+            conexion = db.getConexion();
+
+            // Verificar si la conexión es nula
+            if (conexion == null) {
+                throw new SQLException("Error al establecer la conexión");
+            }
+            else {
+                System.out.println("Conexion establecida correctamente");
+                 }
+            
+            // Crear una instancia de Sql para realizar la operación de inserción
+            Sql sql = new Sql();
+             // Obtener el ID de la carrera a eliminar desde la solicitud
+            int idCarrera = Integer.parseInt(request.getParameter("idCarrera"));
+
+        // Llamar a la función para eliminar la carrera
+            sql.deleteCarrera(idCarrera, conexion);
+            
+
+          
+
+        } catch (ClassNotFoundException | SQLException e) {
+            // Manejar cualquier excepción
+            request.setAttribute("error", "Error: " + e.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+
+        } finally {
+            // Cerrar la conexión
+            if (conexion != null) {
+                try {
+                    conexion.close();
+                } catch (SQLException e) {
+                    // Manejar cualquier excepción
+                }
+            }
+        }
+        System.out.println("HOLA ESTOY EN EL DELETE");
     }
 
     /**
@@ -131,5 +174,12 @@ public class Listar extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+        System.out.println("HOLA ESTOY EN EL DELETE");
+    }
 
 }

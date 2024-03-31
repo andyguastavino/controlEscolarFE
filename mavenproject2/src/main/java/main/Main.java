@@ -48,7 +48,7 @@ public class Main {
                     System.out.println("Ingrese el 'id' de la fila que quiere borrar");
                     nextIntInput = in.nextInt();
                     in.nextLine();
-                    controlEscolar.deleteData(car.getTable(), nextIntInput,con);
+                    controlEscolar.deleteCarrera(nextIntInput,con);
                     break;                            
                     }
         }while(inUsuario!=0);

@@ -33,7 +33,18 @@
                 <tr>
                     <td>${carrera.id}</td> 
                     <td>${carrera.nombre}</td>
-                    <td><a href = "exito.jsp">Borrar</a><a>Editar</a></td> 
+                    <td>
+                        <form action="Listar" method="post"> 
+                             <input type="hidden" name="idCarrera" value="${carrera.id}">
+                            <input type="submit" value="Eliminar"> 
+                         </form>
+                        <form action="Listar" method="put"> 
+         
+                            <input type="submit" value="Modificar"> 
+                        </form>
+                    
+                    
+                    </td> 
                      
                     
                 </tr>

@@ -59,9 +59,9 @@ public class Sql {
     }
 
 
-    public static void deleteData(String table, int id, Connection con){
+    public static void deleteCarrera(int id, Connection con){
         try {
-            String SQLQuery = "DELETE FROM " + table + " WHERE id = ?";
+            String SQLQuery = "DELETE FROM carreras WHERE id = ?";
             PreparedStatement pt = con.prepareStatement(SQLQuery);
             pt.setInt(1, id);
             pt.executeUpdate();
