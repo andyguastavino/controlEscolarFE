@@ -11,6 +11,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import db.DbConnect;
+import db.Sql;
+import java.util.List;
+
+
+
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import model.Carrera;
 
 /**
  *
@@ -65,6 +75,51 @@ public class Modificar extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+         // Crear una conexión
+        Connection conexion = null;
+        try {
+            // Obtener la conexión de la clase DbConnect
+            DbConnect.loadDriver();
+            DbConnect db = new DbConnect();
+            conexion = db.getConexion();
+
+            // Verificar si la conexión es nula
+            if (conexion == null) {
+                throw new SQLException("Error al establecer la conexión");
+            }
+            else {
+                System.out.println("Conexion establecida correctamente");
+                 }
+            
+            // Crear una instancia de Sql para realizar la operación de inserción
+            Sql sql = new Sql();
+
+           // Obtener los parámetros del formulario
+            String carreraAntigua = request.getParameter("carrera");
+            String nuevaCarrera = request.getParameter("nuevaCarrera");
+
+            // Llamar a la función para actualizar los datos
+            sql.updateData(carreraAntigua, nuevaCarrera, conexion);
+
+            // Si se llega a este punto, la modificación fue exitosa
+            // Redireccionar a una página de éxito o mostrar un mensaje de confirmación
+            response.sendRedirect("exitoCarreraModificada.jsp");
+
+        } catch (ClassNotFoundException | SQLException e) {
+            // Manejar cualquier excepción
+            request.setAttribute("error", "Error: " + e.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+
+        } finally {
+            // Cerrar la conexión
+            if (conexion != null) {
+                try {
+                    conexion.close();
+                } catch (SQLException e) {
+                    // Manejar cualquier excepción
+                }
+            }
+    }
     }
 
     /**

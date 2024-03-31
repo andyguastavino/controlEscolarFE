@@ -71,9 +71,9 @@ public class Sql {
             System.err.println("Error borrando los datos seleccionados: " + e.getMessage());
         }
     }
-    public static void updateData(String table, String columna, String nombreAntiguo, String nombreNuevo, Connection con) {
+    public static void updateData(String nombreAntiguo, String nombreNuevo, Connection con) {
         try {
-            String query = "UPDATE " + table + " SET " + columna + " = ? WHERE " + columna + " LIKE ?"; 
+            String query = "UPDATE carreras SET  nombre  = ? WHERE nombre  LIKE ?"; 
             try (PreparedStatement pt = con.prepareStatement(query)) {
                 pt.setString(1, nombreNuevo);
                 pt.setString(2, nombreAntiguo);

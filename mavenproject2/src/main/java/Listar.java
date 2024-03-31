@@ -175,11 +175,4 @@ public class Listar extends HttpServlet {
         return "Short description";
     }// </editor-fold>
     
-    @Override
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-        System.out.println("HOLA ESTOY EN EL DELETE");
-    }
-
 }

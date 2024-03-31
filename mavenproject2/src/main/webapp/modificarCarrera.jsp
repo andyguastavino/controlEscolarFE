@@ -1,18 +1,23 @@
-<%-- 
-    Document   : modificarCarrera
-    Created on : 18 mar 2024, 14:01:24
-    Author     : Mati
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Modifiar Carrera</h1>
-         <jsp:include page="menuNavegacion.jsp" />
-    </body>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Modificar Carrera</title>
+</head>
+<body>
+    <h1>Modificar Carrera</h1>
+    
+    <jsp:include page="menuNavegacion.jsp" />
+
+    <form action="Modificar" method="post">
+        <label for="carrera">Carrera a modificar:</label>
+        <input type="text" id="carrera" name="carrera" required>
+        <br>
+        <label for="nuevaCarrera">Nueva carrera:</label>
+        <input type="text" id="nuevaCarrera" name="nuevaCarrera" required>
+        <br>
+        <button type="submit">Modificar Carrera</button>
+    </form>
+</body>
 </html>

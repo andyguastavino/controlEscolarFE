@@ -38,10 +38,6 @@
                              <input type="hidden" name="idCarrera" value="${carrera.id}">
                             <input type="submit" value="Eliminar"> 
                          </form>
-                        <form action="Listar" method="put"> 
-         
-                            <input type="submit" value="Modificar"> 
-                        </form>
                     
                     
                     </td> 

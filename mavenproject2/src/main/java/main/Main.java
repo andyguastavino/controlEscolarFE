@@ -42,7 +42,7 @@ public class Main {
                     System.out.println("Ingrese el nombre de la carrera que quiere actualizar y la nueva en ese orden");
                     nextInput1 = in.nextLine();
                     nextInput2 = in.nextLine();
-                    controlEscolar.updateData(car.getTable(), car.getColumna1(),nextInput1,nextInput2,con);
+                    controlEscolar.updateData(nextInput1,nextInput2,con);
                     break;
                 case 4:
                     System.out.println("Ingrese el 'id' de la fila que quiere borrar");
