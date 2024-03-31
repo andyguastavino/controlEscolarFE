@@ -13,5 +13,6 @@
     </head>
     <body>
         <h1>Exito, has creado una nueva carrera</h1>
+        <<a href="home.jsp">Volver</a>
     </body>
 </html>

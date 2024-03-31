@@ -11,6 +11,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import db.DbConnect;
+import db.Sql;
+
+
+
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
 
 /**
  *
@@ -50,7 +59,52 @@ public class Listar extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        // Establecer el tipo de contenido de la respuesta
+        response.setContentType("text/html;charset=UTF-8");
+
+        // Establecer PrintWriter para escribir la respuesta
+        PrintWriter out = response.getWriter();
+
+        // Crear una conexión
+        Connection conexion = null;
+
+        try {
+            // Obtener la conexión de la clase DbConnect
+            DbConnect.loadDriver();
+            DbConnect db = new DbConnect();
+            conexion = db.getConexion();
+
+            // Verificar si la conexión es nula
+            if (conexion == null) {
+                out.println("Error al establecer la conexión");
+                return;
+            }
+             // Crear una instancia de Sql para realizar la operación de inserción
+            Sql sql = new Sql();
+
+            // Llamar a la función readAndPrintData para obtener los datos de la tabla 'carreras'
+            out.println("<html><body>");
+            out.println("<h2>Carreras:</h2>");
+            out.println("<table border='1'>");
+            sql.readAndPrintData("carreras", "nombre", conexion); // Llamada a la función
+            out.println("</table>");
+            out.println("</body></html>");
+
+        } catch (ClassNotFoundException | SQLException e) {
+            // Manejar cualquier excepción
+            out.println("Error: " + e.getMessage());
+
+        } finally {
+            // Cerrar la conexión
+            if (conexion != null) {
+                try {
+                    conexion.close();
+                } catch (SQLException e) {
+                    // Manejar cualquier excepción
+                }
+            }
+    }
     }
 
     /**
