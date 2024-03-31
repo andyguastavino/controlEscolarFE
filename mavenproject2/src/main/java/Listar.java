@@ -13,12 +13,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import db.DbConnect;
 import db.Sql;
+import java.util.List;
 
 
 
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import model.Carrera;
 
 
 /**
@@ -60,12 +62,6 @@ public class Listar extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        // Establecer el tipo de contenido de la respuesta
-        response.setContentType("text/html;charset=UTF-8");
-
-        // Establecer PrintWriter para escribir la respuesta
-        PrintWriter out = response.getWriter();
-
         // Crear una conexión
         Connection conexion = null;
 
@@ -77,23 +73,28 @@ public class Listar extends HttpServlet {
 
             // Verificar si la conexión es nula
             if (conexion == null) {
-                out.println("Error al establecer la conexión");
-                return;
+                throw new SQLException("Error al establecer la conexión");
             }
-             // Crear una instancia de Sql para realizar la operación de inserción
+            else {
+                System.out.println("Conexion establecida correctamente");
+                 }
+            
+            // Crear una instancia de Sql para realizar la operación de inserción
             Sql sql = new Sql();
 
-            // Llamar a la función readAndPrintData para obtener los datos de la tabla 'carreras'
-            out.println("<html><body>");
-            out.println("<h2>Carreras:</h2>");
-            out.println("<table border='1'>");
-            sql.readAndPrintData("carreras", "nombre", conexion); // Llamada a la función
-            out.println("</table>");
-            out.println("</body></html>");
+            // Obtener la lista de carreras
+            List<Carrera> carreras = sql.getCarreras(conexion);
+
+            // Establecer la lista de carreras como atributo de solicitud
+            request.setAttribute("carreras", carreras);
+
+            // Redireccionar al archivo JSP
+            request.getRequestDispatcher("listarCarrera.jsp").forward(request, response);
 
         } catch (ClassNotFoundException | SQLException e) {
             // Manejar cualquier excepción
-            out.println("Error: " + e.getMessage());
+            request.setAttribute("error", "Error: " + e.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
 
         } finally {
             // Cerrar la conexión
@@ -104,7 +105,7 @@ public class Listar extends HttpServlet {
                     // Manejar cualquier excepción
                 }
             }
-    }
+        }
     }
 
     /**

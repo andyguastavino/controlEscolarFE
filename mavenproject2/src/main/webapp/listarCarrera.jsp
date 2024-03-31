@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,5 +15,35 @@
     <body>
         <h1>Lista de Carreras</h1>
          <jsp:include page="menuNavegacion.jsp" />
+         <form action="Listar" method="get"> 
+         
+            <input type="submit" value="VER LISTA CARRERAS"> 
+        </form>
+          <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre de la Carrera</th>
+                <th>Acciones</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="carrera" items="${carreras}">
+                <tr>
+                    <td>${carrera.id}</td> 
+                    <td>${carrera.nombre}</td>
+                    <td><a href = "exito.jsp">Borrar</a><a>Editar</a></td> 
+                     
+                    
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+    
+    <%-- Si deseas mostrar algún mensaje de error, puedes hacerlo aquí --%>
+    <% if (request.getAttribute("error") != null) { %>
+        <p>Error: ${request.getAttribute("error")}</p>
+    <% } %>
     </body>
 </html>

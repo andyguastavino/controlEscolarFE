@@ -10,6 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 
 
 /**
@@ -71,15 +74,33 @@ public class Sql {
     public static void updateData(String table, String columna, String nombreAntiguo, String nombreNuevo, Connection con) {
         try {
             String query = "UPDATE " + table + " SET " + columna + " = ? WHERE " + columna + " LIKE ?"; 
-            PreparedStatement pt = con.prepareStatement(query);
-            pt.setString(1, nombreNuevo); 
-            pt.setString(2, nombreAntiguo); 
-            pt.executeUpdate();
-            System.out.println("Datos actualizados correctamente.");
-            pt.close();
+            try (PreparedStatement pt = con.prepareStatement(query)) {
+                pt.setString(1, nombreNuevo);
+                pt.setString(2, nombreAntiguo);
+                pt.executeUpdate();
+                System.out.println("Datos actualizados correctamente.");
+            }
         } catch (SQLException e) {
             System.err.println("Error actualizando los datos: " + e.getMessage());
         }
+    }
+    
+     public List<Carrera> getCarreras(Connection conexion) {
+        List<Carrera> carreras = new ArrayList<>();
+        try {
+            String SQLQuery = "SELECT id,  nombre   FROM  carreras";
+            PreparedStatement pt = conexion.prepareStatement(SQLQuery);
+            ResultSet rs = pt.executeQuery();
+            while (rs.next()) {
+                Carrera carrera = new Carrera(rs.getInt("id"), rs.getString("nombre"));
+                carreras.add(carrera);
+            }
+            rs.close();
+            pt.close();
+        } catch (SQLException ex) {
+            System.out.println("Error en la adquisición de datos: " + ex.getMessage());
+        }
+        return carreras;
     }
   
     public Carrera getCar() {
