@@ -1,0 +1,76 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 1 abr. 2024, 20:47:54
+    Author     : 39348
+*/
+   nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            background-color: #333;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #555;
+        }
+        
+        h1{
+            text-align: center;
+            background-color: red;
+        }
+       body {
+            margin: 0;
+            padding: 0;
+            background-image: url(imgs/nature.jpg);
+            background-repeat: no-repeat;
+            color: white;
+            justify-content: center; /* Centramos horizontalmente */
+            
+        }
+
+        form {
+            border: 2px solid red;
+            text-align: center;
+            border-radius: 10px; 
+            padding: 20px;
+            background-color: pink;
+            font-weight: bolder;
+            
+        }
+        
+        input{
+            border-radius: 25px;
+            margin-left: 20px;
+            margin-bottom: 20px;
+            border: 1px solid red;
+        }
+        label{
+            display: inline-block;
+            width: 150px;
+        }
+        
+        table, table form{
+            background-color: red;
+            margin-top: 30px;
+            text-align: center;
+            text-transform: capitalize;
+        }
+       
+        
