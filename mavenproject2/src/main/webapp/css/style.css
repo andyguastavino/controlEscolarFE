@@ -73,5 +73,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
             text-align: center;
             text-transform: capitalize;
         }
+        a{
+            text-decoration: none;
+            color: white;
+            display: inline-block;
+            width: 50px;
+            border-radius: 25px;
+            border: 1px solid white;
+        }
        
         

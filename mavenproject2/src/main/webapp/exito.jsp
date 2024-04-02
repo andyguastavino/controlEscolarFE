@@ -10,9 +10,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" href="css/style.css"/>
     </head>
     <body>
         <h1>Exito, has creado una nueva carrera</h1>
-        <<a href="home.jsp">Volver</a>
+        <a href="home.jsp">Volver</a>
     </body>
 </html>
